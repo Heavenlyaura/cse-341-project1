@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 /* *****************************************
  * ROUTES
  ******************************************* */
-app.use("/contact", router);
+app.use("/", router);
 
 
 
