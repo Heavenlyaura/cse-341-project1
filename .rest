@@ -1,6 +1,6 @@
 
 # Test request to retrive all contacts
-http://localhost:3000/contact/66eafaf51d5ea2150714e23c
+http://localhost:3000/contact
 
 # Results
 {
@@ -32,4 +32,72 @@ http://localhost:3000/contact/66eafaf51d5ea2150714e23c
   ]
 }
 
+# Test request to retrive single contact
+GET http://localhost:3000/contact/66eafaf51d5ea2150714e23d
+
+# Result
+
+{
+  "result": {
+    "_id": "66eafaf51d5ea2150714e23d",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@example.com",
+    "favoriteColor": "Green",
+    "birthday": "1985-07-23"
+  }
+}
+
+
+
+# Production Testing
+
+# Test request to retrive all contacts
+GET https://cse-341-project1-2pfh.onrender.com/contact
+
+{
+  "result": [
+    {
+      "_id": "66eafaf51d5ea2150714e23c",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "favoriteColor": "Blue",
+      "birthday": "1990-01-15"
+    },
+    {
+      "_id": "66eafaf51d5ea2150714e23d",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "favoriteColor": "Green",
+      "birthday": "1985-07-23"
+    },
+    {
+      "_id": "66eafaf51d5ea2150714e23e",
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice.johnson@example.com",
+      "favoriteColor": "Red",
+      "birthday": "1992-12-05"
+    }
+  ]
+}
+
+
+# Test request to retrive single contact
+GET https://cse-341-project1-2pfh.onrender.com/contact/66eafaf51d5ea2150714e23e
+
+# Results
+
+{
+  "result": {
+    "_id": "66eafaf51d5ea2150714e23e",
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "email": "alice.johnson@example.com",
+    "favoriteColor": "Red",
+    "birthday": "1992-12-05"
+  }
+}
 
