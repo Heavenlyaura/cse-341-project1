@@ -35,4 +35,86 @@ async function getContactById(id) {
   }
 }
 
-module.exports = { getAllContacts, getContactById };
+async function createUser(
+  firstName,
+  lastName,
+  email,
+  favouriteColor,
+  birthDay
+) {
+  try {
+    const client = await getClient();
+    const database = client.db("cse-341-project1");
+    const collection = database.collection("contacts");
+    const newUser = {
+      firstName,
+      lastName,
+      email,
+      favouriteColor,
+      birthDay,
+    };
+    const result = await collection.insertOne(newUser);
+    return result.insertedId;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw new Error("Unable to create user");
+  }
+}
+
+async function updateUser(
+  id,
+  { firstName, lastName, email, favouriteColor, birthDay }
+) {
+  try {
+    const client = await getClient();
+    const database = client.db("cse-341-project1");
+    const collection = database.collection("contacts");
+    // Find the user by ID and update their details
+    const result = await collection.updateOne(
+      { _id: new ObjectId(id) }, // Find user by their MongoDB ObjectId
+      {
+        $set: {
+          firstName,
+          lastName,
+          email,
+          favouriteColor,
+          birthDay,
+        },
+      }
+    );
+    // Check if the update was successful
+    if (result.matchedCount === 0) {
+      throw new Error("User not found");
+    }
+    return result; // Return the result of the update operation
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw new Error("Unable to update user");
+  }
+}
+
+async function deleteUser(id) {
+  try {
+    const client = await getClient();
+    const database = client.db("cse-341-project1");
+    const collection = database.collection("contacts");
+    // Attempt to delete the user by their ID
+    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    // `result` contains information about how many documents were deleted
+    return result;
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    throw new Error("Error deleting user"); // Let the caller handle the error
+  }
+}
+
+module.exports = deleteUser;
+
+module.exports = {
+  getAllContacts,
+  getContactById,
+  createUser,
+  updateUser,
+  deleteUser,
+};
